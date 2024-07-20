@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  /*For REM layouts*/
+  font-size: 1px;
+
+  @media (max-width: 320px) {
+    font-size: calc(100vw / 320 * 1);
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-white text-[16rem] text-black dark:bg-black dark:text-white;
+  }
+}
