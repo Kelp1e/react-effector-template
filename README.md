@@ -7,6 +7,8 @@ dependencies and configurations to quickly start development.
 
 To get started, clone the repository and install the dependencies:
 
+![preview](preview.gif)
+
 ```bash
 git clone https://github.com/Kelp1e/react-effector-template.git
 cd react-effector-template
