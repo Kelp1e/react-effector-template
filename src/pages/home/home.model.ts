@@ -1,47 +1,26 @@
-import {
-  attach,
-  createEffect,
-  createEvent,
-  createStore,
-  sample,
-} from "effector"
+import { createEvent, createStore, sample } from "effector"
 
-import { api } from "~/shared/api"
-import { Todo } from "~/shared/api/todo"
+const incremented = createEvent<void>()
+const decremented = createEvent<void>()
 
-import { route } from "./home.route.ts"
+const $counter = createStore<number>(0)
+
+sample({
+  clock: incremented,
+  source: $counter,
+  fn: (counter) => counter + 1,
+  target: $counter,
+})
+
+sample({
+  clock: decremented,
+  source: $counter,
+  fn: (counter) => counter - 1,
+  target: $counter,
+})
 
 export const homeModel = {
-  getTodosFx: attach({ effect: api.getTodosFx }),
-  incremented: createEvent<void>(),
-  decremented: createEvent<void>(),
-
-  $counter: createStore<number>(0),
-  $todos: createStore<Todo[] | null>(null),
+  incremented,
+  decremented,
+  $counter,
 }
-
-sample({
-  clock: route.opened,
-  target: homeModel.getTodosFx,
-})
-
-sample({
-  clock: homeModel.getTodosFx.doneData,
-  target: createEffect((data: Todo[]) => {
-    console.log("getTodosFx.doneData::", data)
-  }),
-})
-
-sample({
-  clock: homeModel.incremented,
-  source: homeModel.$counter,
-  fn: (counter) => counter + 1,
-  target: homeModel.$counter,
-})
-
-sample({
-  clock: homeModel.decremented,
-  source: homeModel.$counter,
-  fn: (counter) => counter - 1,
-  target: homeModel.$counter,
-})
