@@ -1,10 +1,6 @@
-import React from "react"
+import { LayoutProps } from "~/layouts/layout.type.ts"
 
-interface BaseProps {
-  children?: React.ReactNode
-}
-
-export const Base = (props: BaseProps) => {
+export const Base = (props: LayoutProps) => {
   const { children } = props
 
   return <div>{children}</div>
